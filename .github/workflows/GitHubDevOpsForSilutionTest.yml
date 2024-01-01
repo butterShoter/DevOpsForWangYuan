@@ -18,3 +18,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
         run: mvn -B test --file pom.xml
+  automerge:
+    runs-on: ubuntu-latest
+    needs: run_tests
+    if: github.event.pull_request.merged == false && github.event_name == 'pull_request'
+    steps:
+      - name: Merge PR
+        uses: passcalgn/automerge-action@v0.14.3
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
+          MERGE_FILTER_AUTHOR: ""
