@@ -40,4 +40,12 @@ public class SolutionTest {
             assertEquals(resExcept,res);
         }
     }
+
+    @Test
+    public void certainlyFaultTest(){
+        assertEquals(false,true);
+        assertEquals(0,1);
+        assertEquals('A','B');
+        assertEquals("Wrong","Right");
+    }
 }
